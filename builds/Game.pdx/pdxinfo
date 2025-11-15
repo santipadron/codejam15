@@ -5,4 +5,8 @@ bundleID=
 version=1.0.0
 buildNumber=1
 pdxversion=30000
+<<<<<<< HEAD
 buildtime=816543237
+=======
+buildtime=816544123
+>>>>>>> origin/david_branch
