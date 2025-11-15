@@ -4,6 +4,7 @@ import "storeScene"
 local pd = playdate
 local gfx = pd.graphics
 
+
 class('ForestScene').extends(gfx.sprite)
 
 function ForestScene:init()
@@ -37,6 +38,8 @@ function ForestScene:init()
     storeFrontSprite:moveTo(buildingX,buildingY)
     storeFrontSprite:add()
 
+    
+    local storeFrontSprite = gfx.sprite.new(gfx.drawRect(12,2,2,2))
     self:add()
 end
 

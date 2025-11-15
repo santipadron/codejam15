@@ -10,10 +10,10 @@ class('StoreScene').extends(gfx.sprite)
 function StoreScene:init()
     self.catalog = {
             -- item/quantity
-            ["Fishing Rod"]=10,
-            ["bait"]=10,
-            ["Glasses"]=10,
-            ["Hat"]=10
+            ["Fishing Rod"]=9,
+            ["bait"]=9,
+            ["Glasses"]=9,
+            ["Hat"]=9
         }
     self.itemKeys = {"Fishing Rod", "Bait", "Glasses", "Hat"}
     self.currentItem=1
