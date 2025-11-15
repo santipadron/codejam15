@@ -38,7 +38,7 @@ function FishBar:getAccerletion(acc)
 end
 
 function FishBar:updateBar()
-    local change, acc = pd.getCrankChange()
+    local change= pd.getCrankChange()
     --self:getAccerletion(acc)
     if change > 0 then
         self.velocity += self.acc
