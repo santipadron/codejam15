@@ -5,69 +5,50 @@
 -- =============================================================
 
 -- Importing libraries used for drawCircleAtPoint and crankIndicator
+import "CoreLibs/object"
 import "CoreLibs/graphics"
 import "CoreLibs/ui"
+
+import "scripts/fishIcon"
+import "scripts/fishBar"
+import "scripts/progressBar"
 
 -- Localizing commonly used globals
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
+local fishImage = gfx.image.new("images/fish1.png")
+local fishBar = FishBar(50, 50, 300, fishImage )
+fishBar:add()
+local fishIcon = FishIcon(100, 50,fishImage)
+fishIcon:add()
 
--- Defining player variables
-local playerSize = 10
-local playerVelocity = 3
-local playerX, playerY = 200, 120
-
--- Drawing player image
-local playerImage = gfx.image.new(32, 32)
-gfx.pushContext(playerImage)
-    -- Draw outline
-    gfx.drawRoundRect(4, 3, 24, 26, 1)
-    -- Draw screen
-    gfx.drawRect(7, 6, 18, 12)
-    -- Draw eyes
-    gfx.drawLine(10, 12, 12, 10)
-    gfx.drawLine(12, 10, 14, 12)
-    gfx.drawLine(17, 12, 19, 10)
-    gfx.drawLine(19, 10, 21, 12)
-    -- Draw crank
-    gfx.drawRect(27, 15, 3, 9)
-    -- Draw A/B buttons
-    gfx.drawCircleInRect(16, 20, 4, 4)
-    gfx.drawCircleInRect(21, 20, 4, 4)
-    -- Draw D-Pad
-    gfx.drawRect(8, 22, 6, 2)
-    gfx.drawRect(10, 20, 2, 6)
-gfx.popContext()
-
--- Defining helper function
-local function ring(value, min, max)
-	if (min > max) then
-		min, max = max, min
-	end
-	return min + (value - min) % (max - min)
-end
+local score = 0
+local lastCollision = pd.getCurrentTimeMilliseconds()
 
 -- playdate.update function is required in every project!
 function playdate.update()
     -- Clear screen
-    gfx.clear()
     -- Draw crank indicator if crank is docked
-    if pd.isCrankDocked() then
-        pd.ui.crankIndicator:draw()
+    gfx.clear()
+    gfx.sprite.update()
+    fishBar:updateBar()
+    -- Handle button input
+    if fishBar:checkCollisions() then
+        lastCollision = pd.getCurrentTimeMilliseconds()
+        score = score_up(score)
     else
-        -- Calculate velocity from crank angle 
-        local crankPosition = pd.getCrankPosition() - 90
-        local xVelocity = math.cos(math.rad(crankPosition)) * playerVelocity
-        local yVelocity = math.sin(math.rad(crankPosition)) * playerVelocity
-        -- Move player
-        playerX += xVelocity
-        playerY += yVelocity
-        -- Loop player position
-        playerX = ring(playerX, -playerSize, 400 + playerSize)
-        playerY = ring(playerY, -playerSize, 240 + playerSize)
+        if pd.getCurrentTimeMilliseconds() - lastCollision > 250 then
+            score = score_down(score)
+        end
     end
-    -- Draw text
-    gfx.drawTextAligned("Template configured!", 200, 30, kTextAlignment.center)
-    -- Draw player
-    playerImage:drawAnchored(playerX, playerY, 0.5, 0.5)
+    
+    --Outline of progress bar
+    gfx.drawRect(360, 20, 20, 140)
+    
+    -- Fill the progress bar based on score
+    -- playdate.graphics.drawRect(x, y, w, h)
+    if score > 0 then
+        gfx.fillRect(360, 160 - score, 20, score)
+    end
+    
 end
