@@ -13,8 +13,9 @@ function FishBar:init(x, y, len, image)
     self.len = len
     self.x = x
     self.y = y
-    self.speed = 0
-    self.acc = 0
+    self.maxSpeed = 4
+    self.velocity = 0
+    self.acc = 1
     self.point = 0
 end
 
@@ -35,11 +36,29 @@ function FishBar:getAccerletion(acc)
         self.acc = -2
     end
 end
+
 function FishBar:updateBar()
     local change, acc = pd.getCrankChange()
-    self:getAccerletion(acc)
-    self.x += self.speed +(1/4)*self.acc
+    --self:getAccerletion(acc)
+    if change > 0 then
+        self.velocity += self.acc
+        if self.velocity > self.maxSpeed then
+            self.velocity = self.maxSpeed
+        end
+    elseif change < 0 then
+        self.velocity -= self.acc
+        if self.velocity < -self.maxSpeed then
+            self.velocity = -self.maxSpeed
+        end
+    else
+        if self.velocity > 0 then
+            self.velocity -= (self.acc/5)
+        elseif self.velocity < 0 then
+            self.velocity += (self.acc/5)
+        end
+    end
 
+    self.x += self.velocity
     self.x = math.max(50, math.min(350, self.x))
     self:moveTo(self.x, self.y)
 end
@@ -59,4 +78,3 @@ function FishBar:gainPoint()
         self.point +=1
     end
 end
-

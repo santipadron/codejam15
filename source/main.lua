@@ -8,22 +8,36 @@
 import "CoreLibs/object"
 import "CoreLibs/graphics"
 import "CoreLibs/ui"
+import "background"
+import "sprites"
 
-import "scripts/fishIcon"
 import "scripts/fishBar"
 import "scripts/progressBar"
 
 -- Localizing commonly used globals
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
-local fishImage = gfx.image.new("images/fish1.png")
-local fishBar = FishBar(50, 50, 300, fishImage )
+
+--set background
+setupGameBackground()
+
+--set fish bar
+local fishBar = FishBar(75, 215, 300, catchingRectangle )
 fishBar:add()
-local fishIcon = FishIcon(100, 50,fishImage)
+
+--set fish icon
+local fishIcon = FishIcon(200, 215,fishToCatch)
 fishIcon:add()
 
 local score = 0
 local lastCollision = pd.getCurrentTimeMilliseconds()
+
+--init sprites
+--catchingRectangleSprite:moveTo(75, 215)
+--catchingRectangleSprite:add()
+
+--fishToCatchSprite:moveTo(200, 215)
+--fishToCatchSprite:add()
 
 -- playdate.update function is required in every project!
 function playdate.update()
@@ -50,5 +64,5 @@ function playdate.update()
     if score > 0 then
         gfx.fillRect(360, 160 - score, 20, score)
     end
-    
 end
+
