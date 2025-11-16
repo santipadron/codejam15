@@ -47,7 +47,7 @@ class('ForestScene').extends(gfx.sprite)
     self.coinSprite:add()
 
     self.playerSprite = gfx.sprite.new(self.playerImages[self.currentDirection][1])
-    self.playerSprite:setCollideRect(30,20,35,70)
+    self.playerSprite:setCollideRect(30,50,35,50)
     self.playerSprite:moveTo(startingX,startingY)
     self.playerSprite:add()
 
@@ -171,7 +171,7 @@ function ForestScene:update()
     -- Scene transitions
 
 
-    if self.playerSprite.x > 155 and self.playerSprite.x < 245 and self.playerSprite.y < 135 then
+    if self.playerSprite.x > 155 and self.playerSprite.x < 245 and self.playerSprite.y < 100 then
         SCENE_MANAGER:switchScene(StoreScene)
     end
     if self.playerSprite.x > 400 then
