@@ -1,4 +1,4 @@
-
+import "background"
 import "storeScene"
 
 local pd = playdate
@@ -7,6 +7,8 @@ local gfx = pd.graphics
 
 class('ForestScene').extends(gfx.sprite)
  function ForestScene:init()
+    -- load background grass
+    setupGrass()
     -- Load player sprite images for each direction
     self.playerImages = {
         right = {
