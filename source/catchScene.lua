@@ -1,4 +1,8 @@
 import "background"
+import "fishesClass"
+
+
+
 
 -- Localizing commonly used globals
 local pd <const> = playdate
@@ -8,6 +12,15 @@ class("CatchScene").extends(gfx.sprite)
 function CatchScene:init()
     local default_font = gfx.getFont()
     local small_font = gfx.font.new("assets/robkohr-mono-5x8")
+
+    local fishTypes = {Frog, Moonfish, Omgfish, Dumbfish, Shrimp}
+    local randomFish = fishTypes[math.random(#fishTypes)]
+    local caughtFish = randomFish()
+    caughtFish:setScale(2)
+    caughtFish:setZIndex(100) -- ensure fish is on top  
+    caughtFish: moveTo(200, 135)
+    caughtFish: add() 
+
     gfx.setFont(default_font, gfx.font.kVariantBold)
 
     setupGameBackground()
@@ -21,6 +34,7 @@ function CatchScene:init()
         gfx.setColor(gfx.kColorWhite)
         gfx.fillRoundRect(10, 10, 280, 130, 5)
         gfx.drawText("GOOOOOT A CATCH !!", 80, 20)
+        gfx.drawText("You caught a " .. caughtFish.name, 70, 55)
         gfx.setFont(small_font)
         gfx.drawText("➀➁ FISH AGAIN", 210, 115)
         gfx.drawText("➂➃ GO HOME", 227, 125)
