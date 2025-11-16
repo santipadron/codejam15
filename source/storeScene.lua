@@ -4,6 +4,8 @@ import "forestScene"
 local pd = playdate
 local gfx = pd.graphics
 
+local cashSound = pd.sound.sampleplayer.new("sounds/cash")
+
 
 class('StoreScene').extends(gfx.sprite)
 
@@ -134,6 +136,8 @@ function StoreScene:buy(item)
     else
         if PLAYER.currentBalance>=((10-self.catalog[self.itemKeys[self.currentItem]])*100) then
             PLAYER.currentBalance = PLAYER.currentBalance-((10-self.catalog[self.itemKeys[self.currentItem]])*100)
+
+            cashSound:play()
 
             self.soldOutButtonSprite:remove()
             self.buyButtonSprite:add()
