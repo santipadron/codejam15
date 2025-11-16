@@ -19,6 +19,8 @@ class("FishingScene").extends(gfx.sprite)
 --set fish bar
 function FishingScene:init()
     setupGameBackground()
+
+    self.currBG = 0
     
     self.fishBar = FishBar(75, 215, 300, catchingRectangle)
     self.fishBar:add()
@@ -52,9 +54,17 @@ end
 
 -- playdate.update function is required in every project!
 function FishingScene:update()
-    gfx.sprite.update()
     if pd.isCrankDocked() then
         return
+    end
+    if self.currBG < 15 then
+        setupGameBackground()
+        self.currBG += 1
+    elseif self.currBG >= 15 and self.currBG < 30 then
+        setupBGtwo()
+        self.currBG += 1
+    elseif self.currBG >= 30 then
+        self.currBG = 0
     end
     self.fishBar:updateBar()
     self.fishIcon:updatePos()
