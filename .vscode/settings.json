@@ -4,18 +4,15 @@
     // The Playdate Lua runtime uses "import" instead of "require"
     "Lua.diagnostics.globals": [
         "import",
-<<<<<<< HEAD
         "ProgressBar",
         "getAccerletion",
         "FishBar",
         "WhiteBar",
-        "FishIcon"
-=======
+        "FishIcon",
         "ForestScene",
         "SceneManager",
         "StoreScene",
         "Player"
->>>>>>> origin/david_branch
     ],
     // Sumneko Lua type definition doesn't support callbacks/overrides yet,
     // so do this to make playdate.update() override not complain as much
