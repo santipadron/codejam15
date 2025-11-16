@@ -6,19 +6,6 @@ local gfx = pd.graphics
 
 
 class('ForestScene').extends(gfx.sprite)
-<<<<<<< HEAD
-
-function ForestScene:init()
-    -- set backgroundImage
-    local backgroundImage = gfx.image.new("images/Grass")
-    gfx.sprite.setBackgroundDrawingCallback(function ()
-        backgroundImage:draw(0,0)
-    end)
-
-    -- player
-    local startingX = 100
-    local startingY = 140
-=======
  function ForestScene:init()
     -- Load player sprite images for each direction
     self.playerImages = {
@@ -49,7 +36,6 @@ function ForestScene:init()
     -- Player setup
     local startingX = 50
     local startingY = 160
->>>>>>> origin/main
     moveSpeed = 5
     
     local frame = gfx.image.new("images/coin.png")
@@ -81,17 +67,6 @@ function ForestScene:init()
     self.treelineSprite2:moveTo(topTreeLineRightX,topTreeLineRightY)
     self.treelineSprite2:add()
 
-<<<<<<< HEAD
-    -- Fences
-    local topTreeLineRightX = 200
-    local topTreeLineRightY = 220
-    local fences = gfx.image.new("images/Fences")
-    self.fencesSprite = gfx.sprite.new(fences)
-    self.fencesSprite:setCollideRect(0,50,500,100)
-    self.fencesSprite:moveTo(topTreeLineRightX,topTreeLineRightY)
-    self.fencesSprite:add()
-
-=======
     --leftWall
     local leftWallX = 0
     local leftWallY = 0
@@ -106,7 +81,6 @@ function ForestScene:init()
     self.bottomWallSprite:setCollideRect(0,0,400,10)
     self.bottomWallSprite:moveTo(bottomWallX, bottomWallY)
     self.bottomWallSprite:add()
->>>>>>> origin/main
 
     --Store
     local buildingX = 200
@@ -161,13 +135,6 @@ function ForestScene:update()
         self.playerSprite:moveBy(moveSpeed, 0)
         isMoving = true
     end
-<<<<<<< HEAD
-    if pd.buttonIsPressed(pd.kButtonLeft) and self.playerSprite.x >=10 then
-        self.playerSprite:moveBy(-moveSpeed,0)
-    end
-    if pd.buttonIsPressed(pd.kButtonDown) and self.playerSprite.y <=220 then
-        self.playerSprite:moveBy(0,moveSpeed)
-=======
     if pd.buttonIsPressed(pd.kButtonLeft) then
         self.currentDirection = "left"
         self.playerSprite:moveBy(-moveSpeed, 0)
@@ -182,7 +149,6 @@ function ForestScene:update()
         self.currentDirection = "down"
         self.playerSprite:moveBy(0, moveSpeed)
         isMoving = true
->>>>>>> origin/main
     end
 
     -- Animate sprite when moving
