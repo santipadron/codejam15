@@ -56,6 +56,32 @@ local function score_down(currentScore)
     return math.max(0, currentScore - 3)
 end
 
+
+function FishingScene:coinUpdate()
+    local frame = gfx.image.new(120, 30)
+    local coin = gfx.image.new("images/coin.png")
+    local coinH, coinW = coin:getSize()
+    gfx.pushContext(frame)
+        gfx.setColor(gfx.kColorBlack)
+        gfx.fillRoundRect(30, 0, 120, 30, 3)
+        -- Draw coin image
+        gfx.setColor(gfx.kColorBlack)
+        coin:draw(35,0)
+        -- Set text color explicitly
+        gfx.setImageDrawMode(gfx.kDrawModeFillWhite)  -- This is KEY!
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 35, 8)
+        
+
+    gfx.popContext()
+    if not self.coinSprite then
+        self.coinSprite = gfx.sprite.new(frame)
+        self.coinSprite:moveTo(40, 20)
+        self.coinSprite:add()
+    else
+        self.coinSprite:setImage(frame)
+    end
+end
+
 -- playdate.update function is required in every project!
 function FishingScene:update()
     if pd.isCrankDocked() then
