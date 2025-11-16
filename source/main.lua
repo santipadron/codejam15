@@ -8,6 +8,7 @@ import "forestScene"
 import "player"
 import "storeScene"
 import "fishingScene"
+import "catchScene"
 
 local pd = playdate
 local gfx = pd.graphics
