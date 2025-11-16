@@ -18,13 +18,12 @@ function Fish:init(name, points, image)
     self.name = name
     self.points = points
 
-    local fishImage = gfx.image.new(imagePath)
-    
-    self:setImage(image)
+    local fishImage = gfx.image.new(image)
+
+    self:setImage(fishImage)
     self:setRarity(points)
 end
     
-
 function Fish:setRarity(points)
     if points <= Rarities.COMMON then
         self.rarity = "Common"
@@ -43,26 +42,26 @@ end
 -- Now create specific fish types
 class('Frog').extends(Fish)
 function Frog:init()
-    Frog.super.init(self, "Frog", 20, "images/frog")
+    Frog.super.init(self, "Frog", 20, "images/Frog.png")
 end
 
 class('Moonfish').extends(Fish)
 function Moonfish:init()
-    Moonfish.super.init(self, "Moonfish", 30, "images/moonfish")
+    Moonfish.super.init(self, "Moonfish", 30, "images/Moonfish.png")
 end
 
 class('Omgfish').extends(Fish)
 function Omgfish:init()
-    Omgfish.super.init(self, "Omgfish", 50, "images/omgfish")
+    Omgfish.super.init(self, "Omgfish", 50, "images/Omgfish.png")
 end
 
 class('Dumbfish').extends(Fish)
 function Dumbfish:init()
-    Dumbfish.super.init(self, "Dumbfish", 70, "images/dumbfish")
+    Dumbfish.super.init(self, "Dumbfish", 70, "images/Dumbfish.png")
 end
 
 class('Shrimp').extends(Fish)
 function Shrimp:init()
-    Shrimp.super.init(self, "Shrimp", 90, "images/shrimp")
+    Shrimp.super.init(self, "Shrimp", 90, "images/Shrimp.png")
     
 end

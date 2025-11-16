@@ -3,6 +3,7 @@ import "fishIcon"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+local reelSound = pd.sound.sampleplayer.new("sounds/reeling")
 
 class('FishBar').extends(gfx.sprite)
 
@@ -67,6 +68,7 @@ function FishBar:checkCollisions()
     local overlaps = self:overlappingSprites()
     for i = 1, #overlaps do
         if overlaps[i]:isa(FishIcon) then
+            reelSound:play()
             return true
         end
     end

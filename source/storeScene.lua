@@ -55,6 +55,9 @@ function StoreScene:init()
     self.hatButtonSprite = gfx.sprite.new(hatButton)
     self.hatButtonSprite:moveTo(startingX,startingY)
 
+    --coin 
+    self.coinSprite = nil
+    self:coinUpdate()
 
     self.catalog = {
             -- item/quantity
@@ -73,6 +76,28 @@ function StoreScene:init()
     self.itemInfo:add()
 
     self:add()
+end
+
+function StoreScene:coinUpdate()
+    local frame = gfx.image.new(100, 40)
+    local coin = gfx.image.new("images/coin.png")
+    local coinH, coinW = coin:getSize()
+    gfx.pushContext(frame)
+        -- Draw coin image
+        gfx.setColor(gfx.kColorWhite)
+        coin:draw(20, 0)
+
+        -- Set text color explicitly
+        gfx.setImageDrawMode(gfx.kDrawModeFillBlack)  -- This is KEY!
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 25, 8)
+    gfx.popContext()
+    if not self.coinSprite then
+        self.coinSprite = gfx.sprite.new(frame)
+        self.coinSprite:moveTo(30, 220)
+        self.coinSprite:add()
+    else
+        self.coinSprite:setImage(frame)
+    end
 end
 
 function StoreScene:updateText()

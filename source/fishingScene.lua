@@ -12,6 +12,8 @@ import "scripts/progressBar"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
+local catchsfx = pd.sound.sampleplayer.new("sounds/catch")
+
 --set background
 
 
@@ -33,6 +35,17 @@ function FishingScene:init()
     self.progressBar = ProgressBar(360, 20, 20, 140)
     self.progressBar:add()
 
+    --set player
+    self.player = gfx.sprite.new(PLAYER.playerCharacter)
+    self.player:setImage(PLAYER.playerCharacter)
+    self.player:moveTo(200, 100)
+    self.player:add()
+
+    --Coin display
+    local frame = gfx.image.new("images/coin.png")
+    self.coinSprite = nil
+    self:coinUpdate()
+
     self.score = 0
     self.lastCollision = pd.getCurrentTimeMilliseconds()
     self:add()
@@ -42,11 +55,43 @@ local function score_up(currentScore)
     return math.min(150, currentScore + 2)
 end
 local function score_down(currentScore)
-    return math.max(0, currentScore - 2)
+    return math.max(0, currentScore - 3)
+end
+
+
+function FishingScene:coinUpdate()
+    local frame = gfx.image.new(120, 30)
+    local coin = gfx.image.new("images/coin.png")
+    local coinH, coinW = coin:getSize()
+    gfx.pushContext(frame)
+        gfx.setColor(gfx.kColorBlack)
+        gfx.fillRoundRect(30, 0, 120, 30, 3)
+        -- Draw coin image
+        gfx.setColor(gfx.kColorBlack)
+        coin:draw(35,0)
+        -- Set text color explicitly
+        gfx.setImageDrawMode(gfx.kDrawModeFillWhite)  -- This is KEY!
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 35, 8)
+        
+
+    gfx.popContext()
+    if not self.coinSprite then
+        self.coinSprite = gfx.sprite.new(frame)
+        self.coinSprite:moveTo(40, 20)
+        self.coinSprite:add()
+    else
+        self.coinSprite:setImage(frame)
+    end
 end
 
 -- playdate.update function is required in every project!
 function FishingScene:update()
+    if pd.isCrankDocked() then
+        return
+    end
+
+    self:coinUpdate()
+
     if self.currBG < 15 then
         setupGameBackground()
         self.currBG += 1
@@ -75,6 +120,7 @@ function FishingScene:update()
     end
 
     if self.score >= 150 then
+        catchsfx:play()
         SCENE_MANAGER:switchScene(CatchScene)
     end
 end
