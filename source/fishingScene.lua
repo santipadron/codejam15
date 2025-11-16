@@ -38,7 +38,7 @@ function FishingScene:init()
     --set player
     self.player = gfx.sprite.new(PLAYER.playerCharacter)
     self.player:setImage(PLAYER.playerCharacter)
-    self.player:moveTo(190, 90)
+    self.player:moveTo(220, 100)
     self.player:add()
 
     --Coin display
