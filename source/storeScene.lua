@@ -32,6 +32,12 @@ function StoreScene:init()
     self.buyButtonSprite:moveTo(startingLeftX,startingLeftY)
     self.buyButtonSprite:add() 
 
+    -- Sold Out Button
+    local soldOutButton = gfx.image.new("images/soldOutButton")
+    self.soldOutButtonSprite = gfx.sprite.new(soldOutButton)
+    self.soldOutButtonSprite:moveTo(startingLeftX,startingLeftY)
+
+
     -- fishingRodButton
     local startingX = 200
     local startingY = 60
@@ -66,6 +72,7 @@ function StoreScene:init()
             ["Glasses"]=9,
             ["Hat"]=9
         }
+
     self.buttonKeys = {self.fishingRodButtonSprite, self.baitButtonSprite, self.glassesButtonSprite, self.hatButtonSprite}
     self.itemKeys = {"Fishing Rod", "Bait", "Glasses", "Hat"}
     self.currentItem=1
@@ -110,6 +117,12 @@ function StoreScene:updateText()
         
         gfx.drawText("Current lvl: " .. 10-self.catalog[self.itemKeys[self.currentItem]], 0,20)
 
+        if  (10-self.catalog[self.itemKeys[self.currentItem]]<10)then
+            gfx.drawText("Price: " .. (10-self.catalog[self.itemKeys[self.currentItem]])*100, 150,0)
+        else
+            gfx.drawText("SOLD OUT", 150,0)
+        end
+
     gfx.popContext()
     self.itemInfo:setImage(frame)
     self.itemInfo:moveTo(304,200)
@@ -119,20 +132,30 @@ function StoreScene:buy(item)
     if self.catalog[item] <= 0 then
         print("No stock!")
     else
-        self.catalog[item] =self.catalog[item]-1
+        if PLAYER.currentBalance>=((10-self.catalog[self.itemKeys[self.currentItem]])*100) then
+            PLAYER.currentBalance = PLAYER.currentBalance-((10-self.catalog[self.itemKeys[self.currentItem]])*100)
 
-        if item == "Fishing Rod" then
-            PLAYER.fishingRodLevel = PLAYER.fishingRodLevel + 1
-            print(PLAYER.fishingRodLevel)
-        elseif item == "Bait" then
-            PLAYER.bait = PLAYER.bait + 1
-            print(PLAYER.bait)
-        elseif item == "Glasses" then
-            PLAYER.fishingPrecision = PLAYER.fishingPrecision + 1
-            print(PLAYER.fishingPrecision)
-        elseif item == "Hat" then
-            PLAYER.skill = PLAYER.skill + 1
-            print(PLAYER.skill)
+            self.soldOutButtonSprite:remove()
+            self.buyButtonSprite:add()
+
+            self.catalog[item] =self.catalog[item]-1
+
+            if item == "Fishing Rod" then
+                PLAYER.fishingRodLevel = PLAYER.fishingRodLevel + 1
+                print(PLAYER.fishingRodLevel)
+            elseif item == "Bait" then
+                PLAYER.bait = PLAYER.bait + 1
+                print(PLAYER.bait)
+            elseif item == "Glasses" then
+                PLAYER.fishingPrecision = PLAYER.fishingPrecision + 1
+                print(PLAYER.fishingPrecision)
+            elseif item == "Hat" then
+                PLAYER.skill = PLAYER.skill + 1
+                print(PLAYER.skill)
+            end
+        else
+            self.buyButtonSprite:remove()
+            self.soldOutButtonSprite:add()
         end
     end
 end
@@ -162,6 +185,7 @@ function StoreScene:update()
         SCENE_MANAGER:switchScene(ForestScene)
     end
 
+    self:coinUpdate()
     self:updateText()
     
 end
