@@ -8,6 +8,12 @@ local gfx = pd.graphics
 class('ForestScene').extends(gfx.sprite)
 
 function ForestScene:init()
+    -- set backgroundImage
+    local backgroundImage = gfx.image.new("images/Grass")
+    gfx.sprite.setBackgroundDrawingCallback(function ()
+        backgroundImage:draw(0,0)
+    end)
+
     -- player
     local startingX = 100
     local startingY = 140
@@ -36,6 +42,15 @@ function ForestScene:init()
     self.treelineSprite2:setCollideRect(0,0,400,80)
     self.treelineSprite2:moveTo(topTreeLineRightX,topTreeLineRightY)
     self.treelineSprite2:add()
+
+    -- Fences
+    local topTreeLineRightX = 200
+    local topTreeLineRightY = 220
+    local fences = gfx.image.new("images/Fences")
+    self.fencesSprite = gfx.sprite.new(fences)
+    self.fencesSprite:setCollideRect(0,50,500,100)
+    self.fencesSprite:moveTo(topTreeLineRightX,topTreeLineRightY)
+    self.fencesSprite:add()
 
 
     --Store
@@ -68,10 +83,10 @@ function ForestScene:update()
     if pd.buttonIsPressed(pd.kButtonUp) then
         self.playerSprite:moveBy(0,-moveSpeed)
     end
-    if pd.buttonIsPressed(pd.kButtonLeft) then
+    if pd.buttonIsPressed(pd.kButtonLeft) and self.playerSprite.x >=10 then
         self.playerSprite:moveBy(-moveSpeed,0)
     end
-    if pd.buttonIsPressed(pd.kButtonDown) then
+    if pd.buttonIsPressed(pd.kButtonDown) and self.playerSprite.y <=220 then
         self.playerSprite:moveBy(0,moveSpeed)
     end
 end
