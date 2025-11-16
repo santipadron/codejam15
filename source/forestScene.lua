@@ -38,6 +38,12 @@ class('ForestScene').extends(gfx.sprite)
     local startingY = 160
     moveSpeed = 5
     
+    local frame = gfx.image.new("images/coin.png")
+    self.coinSprite = gfx.sprite.new(frame)
+    self.coinSprite:moveTo(30, 220) -- coin position
+    self.coinSprite:setZIndex(100)
+    self.coinSprite:add()
+
     self.playerSprite = gfx.sprite.new(self.playerImages[self.currentDirection][1])
     self.playerSprite:setCollideRect(30,20,35,70)
     self.playerSprite:moveTo(startingX,startingY)
@@ -87,11 +93,42 @@ class('ForestScene').extends(gfx.sprite)
 
     
     self:add()
-end 
+end
+
+function ForestScene:coinUpdate()
+    local frame = gfx.image.new(100, 40)
+    local coin = gfx.image.new("images/coin.png")
+    local coinH, coinW = coin:getSize()
+    gfx.pushContext(frame)
+        -- Draw coin image
+        gfx.setColor(gfx.kColorWhite)
+        coin:draw(20, 0)
+
+        -- Set text color explicitly
+        gfx.setImageDrawMode(gfx.kDrawModeFillBlack)  -- This is KEY!
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 25, 8)
+    gfx.popContext()
+    if not self.coinSprite then
+        self.coinSprite = gfx.sprite.new(frame)
+        self.coinSprite:moveTo(30, 200)
+        self.coinSprite:add()
+    else
+        self.coinSprite:setImage(frame)
+    end
+end
 
 function ForestScene:update()
-    local actualX, actualY, collision, length = self.playerSprite:moveWithCollisions(self.playerSprite.x, self.playerSprite.y)
+    local actualX, actualY, collision, length=self.playerSprite:moveWithCollisions(self.playerSprite.x, self.playerSprite.y)
+    self:coinUpdate()
     local isMoving = false
+
+     -- Handle movement input
+    if self.playerSprite.x>150 and self.playerSprite.x<250  and self.playerSprite.y == 126 then
+        SCENE_MANAGER:switchScene(StoreScene)
+    end
+    if self.playerSprite.x>400 then
+        SCENE_MANAGER:switchScene(FishingScene)
+    end
 
     if pd.buttonIsPressed(pd.kButtonRight) then
         self.currentDirection = "right"

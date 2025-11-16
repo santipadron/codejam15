@@ -11,5 +11,6 @@ function Player:init()
     self.bait = 1                     -- increases income and rare fish chance
     self.skill = 1                    -- reduces duration for each catch phase
     self.playerCharacter = gfx.image.new("images/Oak_Tree")
-    self.currentBalance = 0
+    
+    self.currentBalance = 1000
 end
