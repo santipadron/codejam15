@@ -10,4 +10,6 @@ function Player:init()
     self.fishingPrecision = 1         -- reduces variation in sensitivity
     self.bait = 1                     -- increases income and rare fish chance
     self.skill = 1                    -- reduces duration for each catch phase
+
+    self.currentBalance = 0
 end
