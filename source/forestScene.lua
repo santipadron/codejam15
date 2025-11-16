@@ -6,18 +6,42 @@ local gfx = pd.graphics
 
 
 class('ForestScene').extends(gfx.sprite)
-
-function ForestScene:init()
-    -- player
-    local startingX = 100
-    local startingY = 140
+ function ForestScene:init()
+    -- Load player sprite images for each direction
+    self.playerImages = {
+        right = {
+            gfx.image.new("images/guyright1"),
+            gfx.image.new("images/guyright2")
+        },
+        left = {
+            gfx.image.new("images/guyleft1"),
+            gfx.image.new("images/guyleft2")
+        },
+        up = {
+            gfx.image.new("images/guyup1"),
+            gfx.image.new("images/guyup2")
+        },
+        down = {
+            gfx.image.new("images/guydown1"),
+            gfx.image.new("images/guydown2")
+        }
+    }
+    
+    -- Animation state
+    self.currentDirection = "down"  -- default direction
+    self.currentFrame = 1
+    self.animationTimer = 0
+    self.animationSpeed = 8  -- frames between sprite change
+    
+    -- Player setup
+    local startingX = 50
+    local startingY = 160
     moveSpeed = 5
     
-    self.playerSprite = gfx.sprite.new(PLAYER.playerCharacter)
-    self.playerSprite:setCollideRect(10,20,40,40)
+    self.playerSprite = gfx.sprite.new(self.playerImages[self.currentDirection][1])
+    self.playerSprite:setCollideRect(30,20,35,70)
     self.playerSprite:moveTo(startingX,startingY)
     self.playerSprite:add()
-
 
     -- top treeline
     local topTreeLineX = -35
@@ -37,42 +61,81 @@ function ForestScene:init()
     self.treelineSprite2:moveTo(topTreeLineRightX,topTreeLineRightY)
     self.treelineSprite2:add()
 
+    --leftWall
+    local leftWallX = 0
+    local leftWallY = 0
+    self.leftWallSprite = gfx.sprite.new()
+    self.leftWallSprite:setCollideRect(0,0,10,240)
+    self.leftWallSprite:add()
+    
+    --botttomWall
+    local bottomWallX = 0
+    local bottomWallY = 240
+    self.bottomWallSprite = gfx.sprite.new()
+    self.bottomWallSprite:setCollideRect(0,0,400,10)
+    self.bottomWallSprite:moveTo(bottomWallX, bottomWallY)
+    self.bottomWallSprite:add()
 
     --Store
     local buildingX = 200
     local buildingY = 50
     local storeFront = gfx.image.new("images/House_1_Wood_Base_Blue")
     self.storeFrontSprite = gfx.sprite.new(storeFront)
-    self.storeFrontSprite:setCollideRect(0,0,95,120)
+    self.storeFrontSprite:setCollideRect(0,0,90,120)
     self.storeFrontSprite:moveTo(buildingX,buildingY)
     self.storeFrontSprite:add()
 
     
     self:add()
-end
+end 
 
 function ForestScene:update()
-    local actualX, actualY, collision, length=self.playerSprite:moveWithCollisions(self.playerSprite.x, self.playerSprite.y)
-
-    print(self.playerSprite.x)
-    print(self.playerSprite.y)
-    if self.playerSprite.x>150 and self.playerSprite.x<250  and self.playerSprite.y == 126 then
-        SCENE_MANAGER:switchScene(StoreScene)
-    end
-    if self.playerSprite.x>400 then
-        SCENE_MANAGER:switchScene(FishingScene)
-    end
+    local actualX, actualY, collision, length = self.playerSprite:moveWithCollisions(self.playerSprite.x, self.playerSprite.y)
+    local isMoving = false
 
     if pd.buttonIsPressed(pd.kButtonRight) then
-        self.playerSprite:moveBy(moveSpeed,0)
-    end
-    if pd.buttonIsPressed(pd.kButtonUp) then
-        self.playerSprite:moveBy(0,-moveSpeed)
+        self.currentDirection = "right"
+        self.playerSprite:moveBy(moveSpeed, 0)
+        isMoving = true
     end
     if pd.buttonIsPressed(pd.kButtonLeft) then
-        self.playerSprite:moveBy(-moveSpeed,0)
+        self.currentDirection = "left"
+        self.playerSprite:moveBy(-moveSpeed, 0)
+        isMoving = true
+    end
+    if pd.buttonIsPressed(pd.kButtonUp) then
+        self.currentDirection = "up"
+        self.playerSprite:moveBy(0, -moveSpeed)
+        isMoving = true
     end
     if pd.buttonIsPressed(pd.kButtonDown) then
-        self.playerSprite:moveBy(0,moveSpeed)
+        self.currentDirection = "down"
+        self.playerSprite:moveBy(0, moveSpeed)
+        isMoving = true
     end
-end
+
+    -- Animate sprite when moving
+    if isMoving then
+        self.animationTimer += 1
+        if self.animationTimer >= self.animationSpeed then
+            self.animationTimer = 0
+            -- Toggle between frame 1 and 2
+            self.currentFrame = (self.currentFrame == 1) and 2 or 1
+            self.playerSprite:setImage(self.playerImages[self.currentDirection][self.currentFrame])
+        end
+    else
+        -- Reset to frame 1 when idle
+        self.currentFrame = 1
+        self.playerSprite:setImage(self.playerImages[self.currentDirection][1])
+    end
+
+    -- Scene transitions
+
+
+    if self.playerSprite.x > 155 and self.playerSprite.x < 245 and self.playerSprite.y < 135 then
+        SCENE_MANAGER:switchScene(StoreScene)
+    end
+    if self.playerSprite.x > 400 then
+        SCENE_MANAGER:switchScene(FishingScene)
+    end
+end 
