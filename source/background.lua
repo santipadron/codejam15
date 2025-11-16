@@ -31,3 +31,12 @@ function setupGameBackground()
         fishingRectangle:draw(10, 200)
     end)
 end
+
+function setupBGtwo()
+    gfx.sprite.setBackgroundDrawingCallback(
+    function (x, y, width, height)
+        bgmap1:draw(0,0)
+        bgdock:draw(0,0)
+        fishingRectangle:draw(10, 200)
+    end)
+end
