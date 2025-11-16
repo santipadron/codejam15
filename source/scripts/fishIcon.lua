@@ -16,11 +16,11 @@ end
 
 function FishIcon:updatePos()
     self.speed += math.random(-2,2)
-    if self.speed > 4 then
-        self.speed = 4
+    if self.speed > 5 then
+        self.speed = 5
     end
-    if self.speed < -4 then
-        self.speed = -4
+    if self.speed < -5 then
+        self.speed = -5
     end
     self.x += self.speed
     self.x = math.max(50, math.min(350, self.x))

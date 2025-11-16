@@ -33,7 +33,6 @@ function playdate.update()
     gfx.sprite.update()
     fishBar:updateBar()
     fishIcon:updatePos()
-
     -- Handle button input
     if fishBar:checkCollisions() then
         lastCollision = pd.getCurrentTimeMilliseconds()
