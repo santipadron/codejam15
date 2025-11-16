@@ -13,7 +13,7 @@ local gfx = pd.graphics
 
 SCENE_MANAGER = SceneManager()
 PLAYER = Player()
-SCENE_MANAGER:switchScene(StoreScene)
+SCENE_MANAGER:switchScene(ForestScene)
 
 -- playdate.update function is required in every project!
 function playdate.update()

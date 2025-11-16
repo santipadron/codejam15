@@ -33,7 +33,7 @@ function StoreScene:init()
     self.button1Sprite:add()
 
     -- Button2
-    local button2 = gfx.image.new("images/ButtonLeft")
+    local button2 = gfx.image.new("images/Button")
     self.button2Sprite = gfx.sprite.new(button2)
     self.button2Sprite:moveTo(startingX,startingY)
 
