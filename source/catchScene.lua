@@ -1,9 +1,6 @@
 import "background"
 import "fishesClass"
 
-
-
-
 -- Localizing commonly used globals
 local pd <const> = playdate
 local gfx <const> = playdate.graphics

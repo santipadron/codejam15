@@ -24,48 +24,77 @@ function StoreScene:init()
     self.buttonLeftSprite:moveTo(startingLeftX,startingLeftY)
     self.buttonLeftSprite:add()  
 
-    -- Button1
+    -- Buy Button
+    local startingLeftX = 200
+    local startingLeftY = 200
+    local buyButton = gfx.image.new("images/buyButton")
+    self.buyButtonSprite = gfx.sprite.new(buyButton)
+    self.buyButtonSprite:moveTo(startingLeftX,startingLeftY)
+    self.buyButtonSprite:add() 
+
+    -- fishingRodButton
     local startingX = 200
     local startingY = 60
-    local button1 = gfx.image.new("images/Button")
-    self.button1Sprite = gfx.sprite.new(button1)
-    self.button1Sprite:moveTo(startingX,startingY)
-    self.button1Sprite:add()
+    local fishingRodButton = gfx.image.new("images/fishingRodButton")
+    self.fishingRodButtonSprite = gfx.sprite.new(fishingRodButton)
+    self.fishingRodButtonSprite:moveTo(startingX,startingY)
+    self.fishingRodButtonSprite:add()
 
-    -- Button2
-    local button2 = gfx.image.new("images/ButtonLeft")
-    self.button2Sprite = gfx.sprite.new(button2)
-    self.button2Sprite:moveTo(startingX,startingY)
+    -- baitButton
+    local baitButton = gfx.image.new("images/baitButton")
+    self.baitButtonSprite = gfx.sprite.new(baitButton)
+    self.baitButtonSprite:moveTo(startingX,startingY)
 
-    -- Button3
-    local button3 = gfx.image.new("images/Button")
-    self.button3Sprite = gfx.sprite.new(button3)
-    self.button3Sprite:moveTo(startingX,startingY)
+    -- glassesButton
+    local glassesButton = gfx.image.new("images/glassesButton")
+    self.glassesButtonSprite = gfx.sprite.new(glassesButton)
+    self.glassesButtonSprite:moveTo(startingX,startingY)
     
-    -- Button4
-    local button4 = gfx.image.new("images/Button")
-    self.button4Sprite = gfx.sprite.new(button4)
-    self.button4Sprite:moveTo(startingX,startingY)
+    -- hatButton
+    local hatButton = gfx.image.new("images/hatButton")
+    self.hatButtonSprite = gfx.sprite.new(hatButton)
+    self.hatButtonSprite:moveTo(startingX,startingY)
+
 
     self.catalog = {
             -- item/quantity
             ["Fishing Rod"]=9,
-            ["bait"]=9,
+            ["Bait"]=9,
             ["Glasses"]=9,
             ["Hat"]=9
         }
-    self.buttonKeys = {self.button1Sprite, self.button2Sprite, self.button3Sprite, self.button4Sprite}
+    self.buttonKeys = {self.fishingRodButtonSprite, self.baitButtonSprite, self.glassesButtonSprite, self.hatButtonSprite}
     self.itemKeys = {"Fishing Rod", "Bait", "Glasses", "Hat"}
     self.currentItem=1
+
+    local frame = gfx.image.new(300, 150)
+    self.itemInfo = gfx.sprite.new(frame)
+    self.itemInfo:moveTo(0, 300)
+    self.itemInfo:add()
 
     self:add()
 end
 
+function StoreScene:updateText()
+    local frame = gfx.image.new(300, 150)
+
+    local small_font = gfx.font.new("assets/robkohr-mono-5x8")
+    gfx.pushContext(frame)
+
+        gfx.drawText("Quantity: " .. self.catalog[self.itemKeys[self.currentItem]], 5,0)
+        
+        gfx.drawText("Current lvl: " .. 10-self.catalog[self.itemKeys[self.currentItem]], 0,20)
+
+    gfx.popContext()
+    self.itemInfo:setImage(frame)
+    self.itemInfo:moveTo(304,200)
+end
+
 function StoreScene:buy(item)
-    if self.catalog[item] == 0 then
+    if self.catalog[item] <= 0 then
         print("No stock!")
     else
-        self.catalog[self.itemKeys[self.currentItem]] =self.catalog[self.itemKeys[self.currentItem]]-1
+        self.catalog[item] =self.catalog[item]-1
 
         if item == "Fishing Rod" then
             PLAYER.fishingRodLevel = PLAYER.fishingRodLevel + 1
@@ -85,14 +114,14 @@ end
 
 
 function StoreScene:update()
-    if pd.buttonIsPressed(pd.kButtonLeft) then
+    if pd.buttonJustReleased(pd.kButtonLeft) then
         if self.currentItem>1 then
             self.buttonKeys[self.currentItem]:remove()
             self.currentItem = self.currentItem-1
             self.buttonKeys[self.currentItem]:add()
         end
     end
-    if pd.buttonIsPressed(pd.kButtonRight) then
+    if pd.buttonJustReleased(pd.kButtonRight) then
         if self.currentItem<#self.itemKeys then
             self.buttonKeys[self.currentItem]:remove()
             self.currentItem = self.currentItem+1
@@ -100,11 +129,14 @@ function StoreScene:update()
         end
     end
 
-    if pd.buttonIsPressed(pd.kButtonA) then
+    if pd.buttonJustPressed(pd.kButtonA) then
         self:buy(self.itemKeys[self.currentItem])
     end
     if pd.buttonIsPressed(pd.kButtonB) then
         print(PLAYER.bait)
         SCENE_MANAGER:switchScene(ForestScene)
     end
+
+    self:updateText()
+    
 end
