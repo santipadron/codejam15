@@ -12,5 +12,5 @@ function Player:init()
     self.skill = 1                    -- reduces duration for each catch phase
     self.playerCharacter = gfx.image.new("images/guyfishing")
     
-    self.currentBalance = 100000
+    self.currentBalance = 9999
 end

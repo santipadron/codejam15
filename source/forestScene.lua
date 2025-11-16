@@ -124,11 +124,11 @@ function ForestScene:coinUpdate()
 
         -- Set text color explicitly
         gfx.setImageDrawMode(gfx.kDrawModeFillBlack)  -- This is KEY!
-        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 25, 8)
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 20, 8)
     gfx.popContext()
     if not self.coinSprite then
         self.coinSprite = gfx.sprite.new(frame)
-        self.coinSprite:moveTo(30, 200)
+        self.coinSprite:moveTo(20, 200)
         self.coinSprite:add()
     else
         self.coinSprite:setImage(frame)
