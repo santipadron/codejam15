@@ -94,6 +94,13 @@ class('ForestScene').extends(gfx.sprite)
     self.storeFrontSprite:moveTo(buildingX,buildingY)
     self.storeFrontSprite:add()
 
+    --sign
+    local sign = gfx.image.new("images/sign")
+    local signspr = gfx.sprite.new(sign)
+    signspr:setZIndex(1001)
+    signspr:moveTo(350, 200)
+    signspr:add()
+
     
     self:add()
 end
