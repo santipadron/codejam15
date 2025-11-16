@@ -12,6 +12,8 @@ import "scripts/progressBar"
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
+local catchsfx = pd.sound.sampleplayer.new("sounds/catch")
+
 --set background
 
 
@@ -118,6 +120,7 @@ function FishingScene:update()
     end
 
     if self.score >= 150 then
+        catchsfx:play()
         SCENE_MANAGER:switchScene(CatchScene)
     end
 end
