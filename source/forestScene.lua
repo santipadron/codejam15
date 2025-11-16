@@ -104,7 +104,7 @@ class('ForestScene').extends(gfx.sprite)
     --shop-sign
     local shopsign = gfx.image.new("images/sign-shop")
     local shopsignspr = gfx.sprite.new(shopsign)
-    shopsignspr:setZIndex(1001)
+    shopsignspr:setZIndex(2)
     shopsignspr:moveTo(130, 80)
     shopsignspr:add()
 
