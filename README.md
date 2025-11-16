@@ -1,7 +1,7 @@
 # It's Getting Fishy...
 A game about fishing for the [Playdate](https://play.date/) game console, a retro feeling console but with modern programming capabilities and interesting controller inputs.
 
-![Title Screen](source/images/launcher/card.png)
+![Title Screen](assets/playdate-20251116-072600.gif)
 
 Made for CodeJam 15 Hackathon 2025
 
@@ -22,6 +22,8 @@ We tested and ran this game on real hardware, using a real Playdate console.
 Pixel art was made by us using [Piskel](https://www.piskelapp.com/), a free online pixel art editor.
 
 Maps and tiles were made using [LDtk](https://ldtk.io/).
+
+![Fishing.](assets/playdate-20251116-072618.png)
 
 ### Music
 Music was made by Santiago, who has musical experience, using Ableton Live
