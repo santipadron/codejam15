@@ -13,26 +13,38 @@ local pd <const> = playdate
 local gfx <const> = playdate.graphics
 
 --set background
-setupGameBackground()
+
 
 class("FishingScene").extends(gfx.sprite)
 --set fish bar
-function FishingScene:init(fishToCatch, catchingRectangle)
-    self.fishBar = FishBar(75, 215, 300, catchingRectangle )
+function FishingScene:init()
+    setupGameBackground()
+    
+    self.fishBar = FishBar(75, 215, 300, catchingRectangle)
     self.fishBar:add()
 
     --set fish icon
     self.fishIcon = FishIcon(200, 215,fishToCatch)
     self.fishIcon:add()
 
+    --set progress bar
+    self.progressBar = ProgressBar(360, 20, 20, 140)
+    self.progressBar:add()
+
     self.score = 0
     self.lastCollision = pd.getCurrentTimeMilliseconds()
+    self:add()
+end
+
+local function score_up(currentScore)
+    return math.min(150, currentScore + 5)
+end
+local function score_down(currentScore)
+    return math.max(0, currentScore - 3)
 end
 
 -- playdate.update function is required in every project!
 function FishingScene:update()
-    gfx.clear()
-    gfx.sprite.update()
     self.fishBar:updateBar()
     self.fishIcon:updatePos()
     -- Handle button input
@@ -46,6 +58,9 @@ function FishingScene:update()
     end
     
     -- Update the progress bar based on score
-    updateProgressBar(self.score)
+    self.progressBar:setScore(self.score)
+    if pd.buttonIsPressed(pd.kButtonB) then
+        SCENE_MANAGER:switchScene(ForestScene)
+    end
 end
 

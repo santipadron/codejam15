@@ -6,6 +6,8 @@ import "CoreLibs/graphics"
 import "sceneManager"
 import "forestScene"
 import "player"
+import "storeScene"
+import "fishingScene"
 
 local pd = playdate
 local gfx = pd.graphics
@@ -13,9 +15,10 @@ local gfx = pd.graphics
 
 SCENE_MANAGER = SceneManager()
 PLAYER = Player()
-SCENE_MANAGER:switchScene(StoreScene)
+SCENE_MANAGER:switchScene(FishingScene)
 
 -- playdate.update function is required in every project!
 function playdate.update()
+    gfx.clear()
     gfx.sprite.update()
 end
