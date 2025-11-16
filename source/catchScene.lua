@@ -41,6 +41,9 @@ function CatchScene:init()
     self.gotCatchSprite:moveTo(200, 100) -- got catch frame
     self.gotCatchSprite:add()
     PLAYER.currentBalance += (caughtFish.points)+(10*PLAYER.bait)
+    if PLAYER.currentBalance >9999 then
+        PLAYER.currentBalance = 9999
+    end
     
     self.coinSprite = nil
     self:coinUpdate()
