@@ -18,13 +18,12 @@ function Fish:init(name, points, image)
     self.name = name
     self.points = points
 
-    local fishImage = gfx.image.new(imagePath)
-    
-    self:setImage(image)
+    local fishImage = gfx.image.new(image)
+
+    self:setImage(fishImage)
     self:setRarity(points)
 end
     
-
 function Fish:setRarity(points)
     if points <= Rarities.COMMON then
         self.rarity = "Common"
