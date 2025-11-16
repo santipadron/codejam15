@@ -2,6 +2,7 @@ import "CoreLibs/object"
 import "CoreLibs/timer"
 import "CoreLibs/sprites"
 import "CoreLibs/graphics"
+import "CoreLibs/ui"
 
 import "sceneManager"
 import "forestScene"
@@ -16,9 +17,12 @@ local gfx = pd.graphics
 
 SCENE_MANAGER = SceneManager()
 PLAYER = Player()
-SCENE_MANAGER:switchScene(ForestScene)
+SCENE_MANAGER:switchScene(FishingScene)
 
 -- playdate.update function is required in every project!
 function playdate.update()
     gfx.sprite.update()
+    if pd.isCrankDocked() then
+        pd.ui.crankIndicator:draw()
+    end
 end
