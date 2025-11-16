@@ -31,6 +31,7 @@ function playdate.update()
     --gfx.clear()
     gfx.sprite.update()
     fishBar:updateBar()
+    fishIcon:updatePos()
 
     -- Handle button input
     if fishBar:checkCollisions() then
