@@ -1,12 +1,15 @@
 import "CoreLibs/object"
-import "CoreLibs/timer"
-import "CoreLibs/sprites"
 import "CoreLibs/graphics"
 import "CoreLibs/ui"
+import "CoreLibs/timer"
+import "CoreLibs/sprites"
+import "player"
+
+PLAYER = Player()
 
 import "sceneManager"
 import "forestScene"
-import "player"
+
 import "storeScene"
 import "fishingScene"
 import "catchScene"
@@ -18,7 +21,7 @@ local gfx = pd.graphics
 
 
 SCENE_MANAGER = SceneManager()
-PLAYER = Player()
+
 SCENE_MANAGER:switchScene(TitleScene)
 
  local ost = pd.sound.fileplayer.new("sounds/ost")

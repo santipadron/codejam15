@@ -24,6 +24,7 @@ function FishingScene:init()
 
     self.currBG = 0
     
+    updateRectangle()
     self.fishBar = FishBar(75, 215, 300, catchingRectangle)
     self.fishBar:add()
 
@@ -52,7 +53,7 @@ function FishingScene:init()
 end
 
 local function score_up(currentScore)
-    return math.min(150, currentScore + 2)
+    return math.min(150, currentScore + 1 + PLAYER.skill)
 end
 local function score_down(currentScore)
     return math.max(0, currentScore - 3)
