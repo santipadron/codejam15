@@ -20,6 +20,7 @@ LDtk.load("background.ldtk")
 bgmap0 = LDtk.create_tilemap("Level_0")
 bgmap1 = LDtk.create_tilemap("Level_1")
 bgdock = LDtk.create_tilemap("Level_2")
+grass = LDtk.create_tilemap("Level_3")
 
 
 --setup background helper function
@@ -38,5 +39,12 @@ function setupBGtwo()
         bgmap1:draw(0,0)
         bgdock:draw(0,0)
         fishingRectangle:draw(10, 200)
+    end)
+end
+
+function setupGrass()
+    gfx.sprite.setBackgroundDrawingCallback(
+    function (x, y, width, height)
+        grass:draw(0,0)
     end)
 end
