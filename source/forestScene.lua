@@ -49,6 +49,7 @@ class('ForestScene').extends(gfx.sprite)
     self.playerSprite = gfx.sprite.new(self.playerImages[self.currentDirection][1])
     self.playerSprite:setCollideRect(30,50,35,50)
     self.playerSprite:moveTo(startingX,startingY)
+    self.playerSprite:setZIndex(99)
     self.playerSprite:add()
 
     -- top treeline
