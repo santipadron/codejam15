@@ -37,10 +37,10 @@ function FishingScene:init()
 end
 
 local function score_up(currentScore)
-    return math.min(150, currentScore + 5)
+    return math.min(150, currentScore + 2)
 end
 local function score_down(currentScore)
-    return math.max(0, currentScore - 3)
+    return math.max(0, currentScore - 2)
 end
 
 -- playdate.update function is required in every project!
@@ -61,6 +61,10 @@ function FishingScene:update()
     self.progressBar:setScore(self.score)
     if pd.buttonIsPressed(pd.kButtonB) then
         SCENE_MANAGER:switchScene(ForestScene)
+    end
+
+    if self.score >= 150 then
+        SCENE_MANAGER:switchScene(CatchScene)
     end
 end
 

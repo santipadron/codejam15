@@ -19,6 +19,7 @@ gfx.popContext()
 LDtk.load("background.ldtk")
 bgmap0 = LDtk.create_tilemap("Level_0")
 bgmap1 = LDtk.create_tilemap("Level_1")
+bgdock = LDtk.create_tilemap("Level_2")
 
 
 --setup background helper function
@@ -26,6 +27,7 @@ function setupGameBackground()
     gfx.sprite.setBackgroundDrawingCallback(
     function (x, y, width, height)
         bgmap0:draw(0,0)
+        bgdock:draw(0,0)
         fishingRectangle:draw(10, 200)
     end)
 end

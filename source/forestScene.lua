@@ -54,6 +54,7 @@ end
 function ForestScene:update()
     local actualX, actualY, collision, length=self.playerSprite:moveWithCollisions(self.playerSprite.x, self.playerSprite.y)
 
+    
     if self.playerSprite.x>150 and self.playerSprite.x<250  and self.playerSprite.y == 126 then
         SCENE_MANAGER:switchScene(StoreScene)
     end
