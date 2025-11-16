@@ -8,6 +8,7 @@ import "forestScene"
 import "player"
 import "storeScene"
 import "fishingScene"
+import "catchScene"
 
 local pd = playdate
 local gfx = pd.graphics
@@ -15,7 +16,7 @@ local gfx = pd.graphics
 
 SCENE_MANAGER = SceneManager()
 PLAYER = Player()
-SCENE_MANAGER:switchScene(ForestScene)
+SCENE_MANAGER:switchScene(CatchScene)
 
 -- playdate.update function is required in every project!
 function playdate.update()
