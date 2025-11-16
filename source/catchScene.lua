@@ -39,7 +39,6 @@ function CatchScene:init()
     self.gotCatchSprite = gfx.sprite.new(frame)
     self.gotCatchSprite:moveTo(200, 100) -- got catch frame
     self.gotCatchSprite:add()
-    print(caughtFish.points)
     PLAYER.currentBalance += (caughtFish.points)+(10*PLAYER.bait)
     
     self.coinSprite = nil

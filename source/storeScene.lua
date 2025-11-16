@@ -132,7 +132,7 @@ end
 
 function StoreScene:buy(item)
     if self.catalog[item] <= 0 then
-        print("No stock!")
+    
     else
         if PLAYER.currentBalance>=((10-self.catalog[self.itemKeys[self.currentItem]])*100) then
             PLAYER.currentBalance = PLAYER.currentBalance-((10-self.catalog[self.itemKeys[self.currentItem]])*100)
@@ -146,16 +146,12 @@ function StoreScene:buy(item)
 
             if item == "Fishing Rod" then
                 PLAYER.fishingRodLevel = PLAYER.fishingRodLevel + 1
-                print(PLAYER.fishingRodLevel)
             elseif item == "Bait" then
                 PLAYER.bait = PLAYER.bait + 1
-                print(PLAYER.bait)
             elseif item == "Glasses" then
                 PLAYER.fishingPrecision = PLAYER.fishingPrecision + 1
-                print(PLAYER.fishingPrecision)
             elseif item == "Hat" then
                 PLAYER.skill = PLAYER.skill + 1
-                print(PLAYER.skill)
             end
         else
             self.buyButtonSprite:remove()
@@ -185,7 +181,6 @@ function StoreScene:update()
         self:buy(self.itemKeys[self.currentItem])
     end
     if pd.buttonIsPressed(pd.kButtonB) then
-        print(PLAYER.bait)
         SCENE_MANAGER:switchScene(ForestScene)
     end
 

@@ -20,11 +20,6 @@ function FishBar:init(x, y, len, image)
     self.point = 0
 end
 
-function FishBar:printVal()
-    print("x coor:", self.x)
-    print("y coor:", self.y)
-    print("points:", self.point)
-end
 
 function FishBar:getAccerletion(acc)
     if acc > 5 then

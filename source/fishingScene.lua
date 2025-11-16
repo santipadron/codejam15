@@ -92,13 +92,17 @@ function FishingScene:update()
 
     self:coinUpdate()
 
-    if self.currBG < 15 then
+    if self.currBG < 60 then
+        self.currBG += 1
+    elseif self.currBG == 60 then
         setupGameBackground()
         self.currBG += 1
-    elseif self.currBG >= 15 and self.currBG < 30 then
+    elseif self.currBG > 60 and self.currBG < 120 then
+        self.currBG += 1
+    elseif self.currBG == 120 then
         setupBGtwo()
         self.currBG += 1
-    elseif self.currBG >= 30 then
+    elseif self.currBG > 120 then
         self.currBG = 0
     end
     self.fishBar:updateBar()
