@@ -100,7 +100,7 @@ function StoreScene:coinUpdate()
 
         -- Set text color explicitly
         gfx.setImageDrawMode(gfx.kDrawModeFillBlack)  -- This is KEY!
-        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 25, 8)
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 20, 8)
     gfx.popContext()
     if not self.coinSprite then
         self.coinSprite = gfx.sprite.new(frame)
