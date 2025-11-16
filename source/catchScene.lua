@@ -42,10 +42,42 @@ function CatchScene:init()
     self.gotCatchSprite = gfx.sprite.new(frame)
     self.gotCatchSprite:moveTo(200, 100) -- got catch frame
     self.gotCatchSprite:add()
+    print(caughtFish.points)
+    PLAYER.currentBalance += caughtFish.points
+    
+    self.coinSprite = nil
+    self:coinUpdate()
+
     self:add()
 end
 
-function CatchScene.update()
+function CatchScene:coinUpdate()
+    local frame = gfx.image.new(120, 30)
+    local coin = gfx.image.new("images/coin.png")
+    local coinH, coinW = coin:getSize()
+    gfx.pushContext(frame)
+        gfx.setColor(gfx.kColorBlack)
+        gfx.fillRoundRect(30, 0, 120, 30, 3)
+        -- Draw coin image
+        gfx.setColor(gfx.kColorBlack)
+        coin:draw(35,0)
+        -- Set text color explicitly
+        gfx.setImageDrawMode(gfx.kDrawModeFillWhite)  -- This is KEY!
+        gfx.drawText("X" .. tostring(PLAYER.currentBalance), coinW + 35, 8)
+        
+
+    gfx.popContext()
+    if not self.coinSprite then
+        self.coinSprite = gfx.sprite.new(frame)
+        self.coinSprite:moveTo(40, 20)
+        self.coinSprite:add()
+    else
+        self.coinSprite:setImage(frame)
+    end
+end
+
+function CatchScene:update()
+    self:coinUpdate()
     if pd.buttonIsPressed(pd.kButtonA) then
         SCENE_MANAGER:switchScene(FishingScene)
     end
