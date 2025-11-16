@@ -33,6 +33,12 @@ function FishingScene:init()
     self.progressBar = ProgressBar(360, 20, 20, 140)
     self.progressBar:add()
 
+    --set player
+    self.player = gfx.sprite.new(PLAYER.playerCharacter)
+    self.player:setImage(PLAYER.playerCharacter)
+    self.player:moveTo(200, 100)
+    self.player:add()
+
     self.score = 0
     self.lastCollision = pd.getCurrentTimeMilliseconds()
     self:add()
@@ -45,8 +51,12 @@ local function score_down(currentScore)
     return math.max(0, currentScore - 2)
 end
 
+
 -- playdate.update function is required in every project!
 function FishingScene:update()
+    if pd.isCrankDocked() then
+        return
+    end
     if self.currBG < 15 then
         setupGameBackground()
         self.currBG += 1

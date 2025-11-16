@@ -12,8 +12,8 @@ function ForestScene:init()
     local startingX = 100
     local startingY = 140
     moveSpeed = 5
-    local playerCharacter = gfx.image.new("images/Oak_Tree")
-    self.playerSprite = gfx.sprite.new(playerCharacter)
+    
+    self.playerSprite = gfx.sprite.new(PLAYER.playerCharacter)
     self.playerSprite:setCollideRect(10,20,40,40)
     self.playerSprite:moveTo(startingX,startingY)
     self.playerSprite:add()
