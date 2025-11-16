@@ -11,6 +11,7 @@ import "storeScene"
 import "fishingScene"
 import "catchScene"
 import "catchScene"
+import "titleScene"
 
 local pd = playdate
 local gfx = pd.graphics
@@ -18,7 +19,7 @@ local gfx = pd.graphics
 
 SCENE_MANAGER = SceneManager()
 PLAYER = Player()
-SCENE_MANAGER:switchScene(ForestScene)
+SCENE_MANAGER:switchScene(TitleScene)
 
  local ost = pd.sound.fileplayer.new("sounds/ost")
 ost:setLoopRange(8)

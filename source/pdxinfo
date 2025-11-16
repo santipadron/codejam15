@@ -1,6 +1,7 @@
-name=CodeJam15Game
+name=It's Getting Fishy...
 author=Santiago, Jason, David, and Minh
-description=
+description=A game about fishing, using the playdate crank.
 bundleID=
 version=1.0.0
 buildNumber=1
+imagePath=images/launcher
