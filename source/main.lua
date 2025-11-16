@@ -6,6 +6,8 @@ import "CoreLibs/graphics"
 import "sceneManager"
 import "forestScene"
 import "player"
+import "storeScene"
+import "fishingScene"
 
 local pd = playdate
 local gfx = pd.graphics

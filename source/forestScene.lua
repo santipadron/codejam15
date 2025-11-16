@@ -57,6 +57,9 @@ function ForestScene:update()
     if self.playerSprite.x>150 and self.playerSprite.x<250  and self.playerSprite.y == 126 then
         SCENE_MANAGER:switchScene(StoreScene)
     end
+    if self.playerSprite.x>400 then
+        SCENE_MANAGER:switchScene(FishingScene)
+    end
 
     if pd.buttonIsPressed(pd.kButtonRight) then
         self.playerSprite:moveBy(moveSpeed,0)
