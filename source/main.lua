@@ -19,6 +19,5 @@ SCENE_MANAGER:switchScene(FishingScene)
 
 -- playdate.update function is required in every project!
 function playdate.update()
-    gfx.clear()
     gfx.sprite.update()
 end

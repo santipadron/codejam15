@@ -13,7 +13,7 @@ function ProgressBar:init(x, y, w, h)
     local img = gfx.image.new(self.w, self.h)
     self:setImage(img)
     -- position: moveTo expects center coordinates
-    self:moveTo(self.x + self.w/2, self.y + self.h/2)
+    self:moveTo(370, 95)
     self:add()
     self:refreshImage()
 end
